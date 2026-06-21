@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
 import '../config/routes.dart';
 import '../widgets/camera_overlay.dart';
+import '../widgets/haptic_util.dart';
 
 /// 📸 पढ़ो गुरु — Camera Screen
 class CameraScreen extends StatefulWidget {
@@ -160,7 +161,10 @@ class _CameraScreenState extends State<CameraScreen> {
               const SizedBox(width: 30),
               // Capture button
               GestureDetector(
-                onTap: _capturePhoto,
+                onTap: () {
+                  HapticUtil.mediumTap();
+                  _capturePhoto();
+                },
                 child: Container(
                   width: 72,
                   height: 72,
@@ -264,10 +268,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   ? const SizedBox(
                       width: 20,
                       height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
-                      ),
+                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                     )
                   : const Icon(Icons.auto_awesome),
               label: Text(

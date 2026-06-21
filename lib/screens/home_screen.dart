@@ -4,6 +4,7 @@ import '../config/theme.dart';
 import '../config/routes.dart';
 import '../widgets/streak_bar.dart';
 import '../widgets/subject_card.dart';
+import '../widgets/haptic_util.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -137,7 +138,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GestureDetector(
-                onTap: () => context.push(AppRoutes.camera),
+                onTap: () {
+                  HapticUtil.mediumTap();
+                  context.push(AppRoutes.camera);
+                },
                 child: Container(
                   height: 140,
                   decoration: BoxDecoration(
