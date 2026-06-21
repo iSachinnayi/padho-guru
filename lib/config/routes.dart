@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import '../screens/splash_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/camera_screen.dart';
@@ -16,8 +17,9 @@ class AppRoutes {
   AppRoutes._();
 
   // ─── Route Paths ──────────────────────────────────────────
+  static const String splash = '/';
   static const String login = '/login';
-  static const String home = '/';
+  static const String home = '/home';
   static const String camera = '/camera';
   static const String chat = '/chat';
   static const String chatWithId = '/chat/:questionId';
@@ -31,8 +33,13 @@ class AppRoutes {
 
   // ─── GoRouter ─────────────────────────────────────────────
   static final GoRouter router = GoRouter(
-    initialLocation: home,
+    initialLocation: splash,
     routes: [
+      GoRoute(
+        path: splash,
+        name: 'splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: login,
         name: 'login',
