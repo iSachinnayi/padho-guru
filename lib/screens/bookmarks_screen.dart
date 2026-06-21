@@ -47,11 +47,15 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
             children: [
               Icon(Icons.bookmark_outline, size: 64, color: AppTheme.textHint),
               SizedBox(height: 12),
-              Text('कोई बुकमार्क नहीं',
-                  style: TextStyle(fontSize: 16, color: AppTheme.textSecondary)),
+              Text(
+                'कोई बुकमार्क नहीं',
+                style: TextStyle(fontSize: 16, color: AppTheme.textSecondary),
+              ),
               SizedBox(height: 4),
-              Text('सवालों के जवाब सेव करें',
-                  style: TextStyle(fontSize: 13, color: AppTheme.textHint)),
+              Text(
+                'सवालों के जवाब सेव करें',
+                style: TextStyle(fontSize: 13, color: AppTheme.textHint),
+              ),
             ],
           ),
         ),
@@ -59,9 +63,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('बुकमार्क (${_bookmarks.length})'),
-      ),
+      appBar: AppBar(title: Text('बुकमार्क (${_bookmarks.length})')),
       body: ListView.builder(
         padding: const EdgeInsets.all(12),
         itemCount: _bookmarks.length,
@@ -95,14 +97,18 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                       Text(
                         item['subject'],
                         style: const TextStyle(
-                            fontSize: 11,
-                            color: AppTheme.primary,
-                            fontWeight: FontWeight.w500),
+                          fontSize: 11,
+                          color: AppTheme.primary,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       const Spacer(),
                       IconButton(
-                        icon: const Icon(Icons.delete_outline,
-                            size: 18, color: AppTheme.textHint),
+                        icon: const Icon(
+                          Icons.delete_outline,
+                          size: 18,
+                          color: AppTheme.textHint,
+                        ),
                         onPressed: () {
                           setState(() => _bookmarks.removeAt(index));
                         },
@@ -115,13 +121,18 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   Text(
                     item['question'],
                     style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w500, height: 1.4),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      height: 1.4,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     item['chapter'],
                     style: const TextStyle(
-                        fontSize: 11, color: AppTheme.textHint),
+                      fontSize: 11,
+                      color: AppTheme.textHint,
+                    ),
                   ),
                 ],
               ),

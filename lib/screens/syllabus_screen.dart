@@ -48,8 +48,8 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
             child: syllabus.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : syllabus.selectedSubject != null
-                    ? _buildChapterList(syllabus)
-                    : _buildEmptyState(),
+                ? _buildChapterList(syllabus)
+                : _buildEmptyState(),
           ),
         ],
       ),
@@ -74,7 +74,10 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
         children: [
           const Icon(Icons.school_outlined, size: 18, color: AppTheme.textHint),
           const SizedBox(width: 8),
-          const Text('कक्षा:', style: TextStyle(fontSize: 13, color: AppTheme.textSecondary)),
+          const Text(
+            'कक्षा:',
+            style: TextStyle(fontSize: 13, color: AppTheme.textSecondary),
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: SingleChildScrollView(
@@ -87,17 +90,26 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                     child: GestureDetector(
                       onTap: () => syllabus.selectClass(cls),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
-                          color: isSelected ? AppTheme.primary : AppTheme.background,
+                          color: isSelected
+                              ? AppTheme.primary
+                              : AppTheme.background,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           cls.replaceAll('Class ', ''),
                           style: TextStyle(
                             fontSize: 13,
-                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                            color: isSelected ? Colors.white : AppTheme.textPrimary,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
+                            color: isSelected
+                                ? Colors.white
+                                : AppTheme.textPrimary,
                           ),
                         ),
                       ),
@@ -132,11 +144,14 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               margin: const EdgeInsets.symmetric(vertical: 6),
               decoration: BoxDecoration(
-                color: isSelected ? AppTheme.primary.withValues(alpha: 0.1) : null,
+                color: isSelected
+                    ? AppTheme.primary.withValues(alpha: 0.1)
+                    : null,
                 borderRadius: BorderRadius.circular(8),
                 border: isSelected
                     ? const Border(
-                        bottom: BorderSide(color: AppTheme.primary, width: 2))
+                        bottom: BorderSide(color: AppTheme.primary, width: 2),
+                      )
                     : null,
               ),
               child: Row(
@@ -147,8 +162,12 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                     subject.nameHindi,
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                      color: isSelected ? AppTheme.primary : AppTheme.textPrimary,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.normal,
+                      color: isSelected
+                          ? AppTheme.primary
+                          : AppTheme.textPrimary,
                     ),
                   ),
                 ],
@@ -234,7 +253,9 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: chapter.isDownloaded ? AppTheme.success : AppTheme.primary,
+                  color: chapter.isDownloaded
+                      ? AppTheme.success
+                      : AppTheme.primary,
                 ),
               ),
             ),
@@ -256,7 +277,10 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
               const SizedBox(width: 8),
               if (chapter.isDownloaded)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: AppTheme.success.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
@@ -279,9 +303,13 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
-                chapter.isDownloaded ? Icons.download_done : Icons.download_outlined,
+                chapter.isDownloaded
+                    ? Icons.download_done
+                    : Icons.download_outlined,
                 size: 18,
-                color: chapter.isDownloaded ? AppTheme.success : AppTheme.textHint,
+                color: chapter.isDownloaded
+                    ? AppTheme.success
+                    : AppTheme.textHint,
               ),
             ),
           ),
@@ -300,24 +328,29 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  ...chapter.topics.map((topic) => Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('• ', style: TextStyle(color: AppTheme.primary)),
-                            Expanded(
-                              child: Text(
-                                topic,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  color: AppTheme.textSecondary,
-                                ),
+                  ...chapter.topics.map(
+                    (topic) => Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            '• ',
+                            style: TextStyle(color: AppTheme.primary),
+                          ),
+                          Expanded(
+                            child: Text(
+                              topic,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: AppTheme.textSecondary,
                               ),
                             ),
-                          ],
-                        ),
-                      )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   if (chapter.topics.isEmpty)
                     const Text(
                       'विषय सूची जल्द आ रही है',
@@ -329,11 +362,15 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                     child: OutlinedButton.icon(
                       onPressed: () => syllabus.toggleDownload(chapter.id),
                       icon: Icon(
-                        chapter.isDownloaded ? Icons.check : Icons.download_outlined,
+                        chapter.isDownloaded
+                            ? Icons.check
+                            : Icons.download_outlined,
                         size: 16,
                       ),
                       label: Text(
-                        chapter.isDownloaded ? 'डाउनलोड हो गया' : 'ऑफलाइन पढ़ें',
+                        chapter.isDownloaded
+                            ? 'डाउनलोड हो गया'
+                            : 'ऑफलाइन पढ़ें',
                         style: const TextStyle(fontSize: 12),
                       ),
                     ),
@@ -365,10 +402,7 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
 
   // ─── Search Dialog ────────────────────────────────────────
   void _showSearch(BuildContext context, SyllabusProvider syllabus) {
-    showSearch(
-      context: context,
-      delegate: _SyllabusSearchDelegate(syllabus),
-    );
+    showSearch(context: context, delegate: _SyllabusSearchDelegate(syllabus));
   }
 
   String _getClassLabel(String cls) {
@@ -402,10 +436,7 @@ class _SyllabusSearchDelegate extends SearchDelegate<String?> {
   List<Widget>? buildActions(BuildContext context) {
     return [
       if (query.isNotEmpty)
-        IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: () => query = '',
-        ),
+        IconButton(icon: const Icon(Icons.clear), onPressed: () => query = ''),
     ];
   }
 
@@ -424,8 +455,10 @@ class _SyllabusSearchDelegate extends SearchDelegate<String?> {
 
     if (results.isEmpty) {
       return const Center(
-        child: Text('कोई परिणाम नहीं मिला',
-            style: TextStyle(color: AppTheme.textSecondary)),
+        child: Text(
+          'कोई परिणाम नहीं मिला',
+          style: TextStyle(color: AppTheme.textSecondary),
+        ),
       );
     }
 
@@ -455,7 +488,9 @@ class _SyllabusSearchDelegate extends SearchDelegate<String?> {
           title: Text(chapter.titleHindi),
           subtitle: Text('${chapter.questionCount} सवाल'),
           trailing: Icon(
-            chapter.isDownloaded ? Icons.download_done : Icons.download_outlined,
+            chapter.isDownloaded
+                ? Icons.download_done
+                : Icons.download_outlined,
             color: chapter.isDownloaded ? AppTheme.success : AppTheme.textHint,
             size: 20,
           ),
@@ -469,8 +504,10 @@ class _SyllabusSearchDelegate extends SearchDelegate<String?> {
   Widget buildSuggestions(BuildContext context) {
     if (query.isEmpty) {
       return const Center(
-        child: Text('अध्याय का नाम टाइप करें',
-            style: TextStyle(color: AppTheme.textSecondary)),
+        child: Text(
+          'अध्याय का नाम टाइप करें',
+          style: TextStyle(color: AppTheme.textSecondary),
+        ),
       );
     }
     syllabus.search(query);

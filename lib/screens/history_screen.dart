@@ -29,7 +29,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
         'पाइथागोरस प्रमेय',
         'ऊर्जा संरक्षण का नियम',
       ][i % 8],
-      'subject': ['Science', 'Science', 'Maths', 'Science', 'Science', 'Science', 'Maths', 'Science'][i % 8],
+      'subject': [
+        'Science',
+        'Science',
+        'Maths',
+        'Science',
+        'Science',
+        'Science',
+        'Maths',
+        'Science',
+      ][i % 8],
       'time': '${i + 1} घंटे पहले',
       'bookmarked': i % 3 == 0,
     },
@@ -44,10 +53,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     final filtered = _history.where((h) {
-      final matchesSearch = _searchController.text.isEmpty ||
-          (h['question'] as String)
-              .toLowerCase()
-              .contains(_searchController.text.toLowerCase());
+      final matchesSearch =
+          _searchController.text.isEmpty ||
+          (h['question'] as String).toLowerCase().contains(
+            _searchController.text.toLowerCase(),
+          );
       return matchesSearch;
     }).toList();
 
@@ -80,24 +90,30 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 12, bottom: 8),
             child: Row(
-              children: _filters.map((f) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: FilterChip(
-                      label: Text(f, style: const TextStyle(fontSize: 12)),
-                      selected: _filter == f,
-                      onSelected: (_) => setState(() => _filter = f),
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              children: _filters
+                  .map(
+                    (f) => Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: FilterChip(
+                        label: Text(f, style: const TextStyle(fontSize: 12)),
+                        selected: _filter == f,
+                        onSelected: (_) => setState(() => _filter = f),
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
                     ),
-                  )).toList(),
+                  )
+                  .toList(),
             ),
           ),
           // List
           Expanded(
             child: filtered.isEmpty
                 ? const Center(
-                    child: Text('कोई हिस्ट्री नहीं',
-                        style: TextStyle(color: AppTheme.textSecondary)),
+                    child: Text(
+                      'कोई हिस्ट्री नहीं',
+                      style: TextStyle(color: AppTheme.textSecondary),
+                    ),
                   )
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -119,7 +135,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         ),
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 4),
+                            horizontal: 14,
+                            vertical: 4,
+                          ),
                           leading: Container(
                             width: 40,
                             height: 40,
@@ -137,14 +155,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           title: Text(
                             item['question'],
                             style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w500),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           subtitle: Text(
                             '${item['subject']} • ${item['time']}',
                             style: const TextStyle(
-                                fontSize: 11, color: AppTheme.textHint),
+                              fontSize: 11,
+                              color: AppTheme.textHint,
+                            ),
                           ),
                           trailing: IconButton(
                             icon: Icon(

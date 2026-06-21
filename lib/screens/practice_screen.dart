@@ -60,12 +60,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
     },
     {
       'question': 'पाइथागोरस प्रमेय किससे संबंधित है?',
-      'options': [
-        'वृत्त',
-        'समकोण त्रिभुज',
-        'समांतर चतुर्भुज',
-        'आयत',
-      ],
+      'options': ['वृत्त', 'समकोण त्रिभुज', 'समांतर चतुर्भुज', 'आयत'],
       'correct': 1,
     },
   ];
@@ -133,8 +128,10 @@ class _PracticeScreenState extends State<PracticeScreen> {
               padding: const EdgeInsets.only(right: 12),
               child: Center(
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
@@ -142,8 +139,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
                   child: Text(
                     '${_secondsRemaining ~/ 60}:${(_secondsRemaining % 60).toString().padLeft(2, '0')}',
                     style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
@@ -174,20 +172,21 @@ class _PracticeScreenState extends State<PracticeScreen> {
                 gradient: AppTheme.primaryGradient,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Icon(Icons.quiz_outlined,
-                  color: Colors.white, size: 36),
+              child: const Icon(
+                Icons.quiz_outlined,
+                color: Colors.white,
+                size: 36,
+              ),
             ),
             const SizedBox(height: 20),
             const Text(
               'प्रैक्टिस टेस्ट',
-              style: TextStyle(
-                  fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             const Text(
               'NCERT पर आधारित 5 सवाल',
-              style: TextStyle(
-                  fontSize: 14, color: AppTheme.textSecondary),
+              style: TextStyle(fontSize: 14, color: AppTheme.textSecondary),
             ),
             const SizedBox(height: 24),
             // Subject selector
@@ -196,14 +195,10 @@ class _PracticeScreenState extends State<PracticeScreen> {
               child: DropdownButtonFormField(
                 initialValue: _selectedSubject,
                 items: _subjects
-                    .map((s) => DropdownMenuItem(
-                        value: s, child: Text(s)))
+                    .map((s) => DropdownMenuItem(value: s, child: Text(s)))
                     .toList(),
-                onChanged: (v) =>
-                    setState(() => _selectedSubject = v!),
-                decoration: const InputDecoration(
-                  labelText: 'विषय चुनें',
-                ),
+                onChanged: (v) => setState(() => _selectedSubject = v!),
+                decoration: const InputDecoration(labelText: 'विषय चुनें'),
               ),
             ),
             const SizedBox(height: 24),
@@ -245,7 +240,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text(
                 '${_currentQuestion + 1}/${_questions.length}',
                 style: const TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.w600),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           ),
@@ -268,9 +265,10 @@ class _PracticeScreenState extends State<PracticeScreen> {
             child: Text(
               q['question'],
               style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  height: 1.5),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                height: 1.5,
+              ),
             ),
           ),
           const SizedBox(height: 16),
@@ -280,8 +278,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
             (i) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: GestureDetector(
-                onTap: () =>
-                    setState(() => _selectedAnswer = i),
+                onTap: () => setState(() => _selectedAnswer = i),
                 child: Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
@@ -314,14 +311,17 @@ class _PracticeScreenState extends State<PracticeScreen> {
                         ),
                         child: Center(
                           child: _selectedAnswer == i
-                              ? const Icon(Icons.check,
-                                  color: Colors.white, size: 14)
+                              ? const Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 14,
+                                )
                               : Text(
-                                  String.fromCharCode(
-                                      65 + i), // A, B, C, D
+                                  String.fromCharCode(65 + i), // A, B, C, D
                                   style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                         ),
                       ),
@@ -342,9 +342,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
             width: double.infinity,
             height: 50,
             child: ElevatedButton(
-              onPressed: _selectedAnswer != null
-                  ? _submitAnswer
-                  : null,
+              onPressed: _selectedAnswer != null ? _submitAnswer : null,
               child: Text(
                 _currentQuestion < _questions.length - 1
                     ? 'अगला सवाल'
@@ -369,25 +367,26 @@ class _PracticeScreenState extends State<PracticeScreen> {
               percent >= 0.8
                   ? '🏆'
                   : percent >= 0.5
-                      ? '👍'
-                      : '💪',
+                  ? '👍'
+                  : '💪',
               style: const TextStyle(fontSize: 64),
             ),
             const SizedBox(height: 16),
             Text(
               '$_score/${_questions.length}',
-              style: const TextStyle(
-                  fontSize: 40, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
               percent >= 0.8
                   ? 'बहुत शानदार! 🎉'
                   : percent >= 0.5
-                      ? 'अच्छा है, और सुधार करो!'
-                      : 'कोई बात नहीं, फिर से प्रयास करो!',
+                  ? 'अच्छा है, और सुधार करो!'
+                  : 'कोई बात नहीं, फिर से प्रयास करो!',
               style: const TextStyle(
-                  fontSize: 16, color: AppTheme.textSecondary),
+                fontSize: 16,
+                color: AppTheme.textSecondary,
+              ),
             ),
             const SizedBox(height: 32),
             SizedBox(
