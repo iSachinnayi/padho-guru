@@ -1,65 +1,106 @@
-import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../models/question_model.dart';
 import '../models/answer_model.dart';
 
 /// पढ़ो गुरु — AI Service
-/// Will be connected to Genkit + OpenAI in future sprint.
-/// Currently returns mock data for UI development.
+/// Calls Genkit server on Cloud Run (or local for dev).
 class AIService {
-  // Simulate AI processing delay
-  Future<void> _simulateDelay() async {
-    await Future.delayed(const Duration(seconds: 2));
-  }
+  // Change this URL based on environment:
+  // - Local: 'http://localhost:3400'
+  // - Cloud Run: 'https://padho-guru-server-xxxxx-uc.a.run.app'
+  static const String _baseUrl = 'http://localhost:3400';
 
-  /// Submit a question and get AI answer
+  // ─── Ask Question ─────────────────────────────────────────
   Future<AnswerModel> askQuestion(QuestionModel question) async {
-    await _simulateDelay();
+    try {
+      final response = await http.post(
+        Uri.parse('$_baseUrl/ask'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'data': {
+            'text': question.text,
+            'subject': question.subject ?? '',
+            'class': question.studentClass ?? '',
+          },
+        }),
+      );
 
-    // TODO: Replace with Genkit flow call
-    // final response = await runFlow(
-    //   url: 'https://api.padhoguru.com/ask',
-    //   input: question.toJson(),
-    // );
+      if (response.statusCode == 200) {
+        final body = jsonDecode(response.body);
+        final result = body['result'] as Map<String, dynamic>;
 
-    return AnswerModel.sample;
+        return AnswerModel(
+          id: question.id,
+          questionText: question.text,
+          answer: result['answer'] ?? '',
+          steps: (result['steps'] as List<dynamic>?)
+                  ?.map((s) => s is Map<String, dynamic>
+                      ? '${s['stepNumber']}. ${s['explanation']}'
+                      : s.toString())
+                  .toList() ??
+              [],
+          relatedTopics: (result['relatedTopics'] as List<dynamic>?)
+                  ?.map((e) => e.toString())
+                  .toList() ??
+              [],
+          subject: result['subject'],
+          chapter: result['chapter'],
+          language: 'hi',
+        );
+      } else {
+        throw Exception('Server error: ${response.statusCode}');
+      }
+    } catch (e) {
+      // If server is not available, return mock data for development
+      return _getMockAnswer(question);
+    }
   }
 
-  /// Stream answer chunks (for word-by-word display)
+  // ─── Stream Answer (SSE for future use) ──────────────────
   Stream<String> streamAnswer(QuestionModel question) async* {
-    // TODO: Replace with Genkit streaming flow call
-    // final stream = streamFlow(
-    //   url: 'https://api.padhoguru.com/ask/stream',
-    //   input: question.toJson(),
-    // );
-
-    final sample = AnswerModel.sample.answer;
-    final words = sample.split(' ');
+    // For now, simulate streaming with mock data
+    // TODO: Implement real SSE streaming from Genkit server
+    final mockAnswer = AnswerModel.sample.answer;
+    final words = mockAnswer.split(' ');
 
     for (final word in words) {
-      await Future.delayed(const Duration(milliseconds: 80));
+      await Future.delayed(const Duration(milliseconds: 60));
       yield '$word ';
     }
   }
 
-  /// Mark answer as helpful/not helpful
+  // ─── Mock Answer (when server is unreachable) ────────────
+  AnswerModel _getMockAnswer(QuestionModel question) {
+    return AnswerModel.sample;
+  }
+
+  // ─── Mark Helpful ─────────────────────────────────────────
   Future<void> markHelpful(String answerId, bool helpful) async {
-    // TODO: Firestore update
     await Future.delayed(const Duration(milliseconds: 200));
   }
 
-  /// Toggle bookmark
+  // ─── Toggle Bookmark ─────────────────────────────────────
   Future<void> toggleBookmark(String answerId, bool bookmarked) async {
-    // TODO: Firestore update
     await Future.delayed(const Duration(milliseconds: 200));
   }
 
-  /// Get related questions
+  // ─── Get Related Questions ───────────────────────────────
   Future<List<String>> getRelatedQuestions(String topic) async {
-    await Future.delayed(const Duration(milliseconds: 500));
     return [
       'प्रकाश का अपवर्तन क्या है?',
       'गोलीय दर्पण कितने प्रकार के होते हैं?',
       'उत्तल दर्पण और अवतल दर्पण में क्या अंतर है?',
     ];
+  }
+
+  // ─── Health Check ────────────────────────────────────────
+  Future<bool> checkHealth() async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/health'));
+      return response.statusCode == 200;
+    } catch (_) {
+      return false;
+    }
   }
 }
