@@ -51,9 +51,7 @@ class _ConfettiWidgetState extends State<ConfettiWidget>
             builder: (context, child) {
               return CustomPaint(
                 size: Size.infinite,
-                painter: _ConfettiPainter(
-                  progress: _controller.value,
-                ),
+                painter: _ConfettiPainter(progress: _controller.value),
               );
             },
           ),
