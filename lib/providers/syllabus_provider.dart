@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import '../models/subject_model.dart';
 import '../services/syllabus_service.dart';
+import '../services/storage_service.dart';
 
 /// पढ़ो गुरु — Syllabus State Provider
 class SyllabusProvider extends ChangeNotifier {
   final SyllabusService _syllabusService = SyllabusService();
+  final StorageService _storageService = StorageService();
 
   // ─── State ────────────────────────────────────────────────
   String _selectedClass = 'Class 10';
@@ -69,8 +71,7 @@ class SyllabusProvider extends ChangeNotifier {
 
   // ─── Toggle Download ──────────────────────────────────────
   Future<void> toggleDownload(String chapterId) async {
-    // TODO: Actual offline download via sqflite
-    await Future.delayed(const Duration(milliseconds: 300));
+    final isDownloaded = await _storageService.toggleDownload(chapterId);
 
     for (final subject in _subjects) {
       for (int i = 0; i < subject.chapters.length; i++) {
@@ -81,7 +82,7 @@ class SyllabusProvider extends ChangeNotifier {
             titleHindi: subject.chapters[i].titleHindi,
             chapterNumber: subject.chapters[i].chapterNumber,
             questionCount: subject.chapters[i].questionCount,
-            isDownloaded: !subject.chapters[i].isDownloaded,
+            isDownloaded: isDownloaded,
             topics: subject.chapters[i].topics,
             progress: subject.chapters[i].progress,
           );
