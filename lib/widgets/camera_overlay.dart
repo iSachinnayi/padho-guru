@@ -14,9 +14,7 @@ class CameraOverlay extends StatelessWidget {
         // Darkened areas
         ClipPath(
           clipper: _GuideClipper(previewHeight: previewHeight),
-          child: Container(
-            color: Colors.black.withValues(alpha: 0.5),
-          ),
+          child: Container(color: Colors.black.withValues(alpha: 0.5)),
         ),
         // Guide border
         Positioned(
@@ -46,7 +44,10 @@ class CameraOverlay extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(20),

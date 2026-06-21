@@ -71,10 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _focusNode.unfocus();
 
     final chatProvider = context.read<ChatProvider>();
-    await chatProvider.askQuestion(
-      text: text,
-      photoPath: _pendingPhotoPath,
-    );
+    await chatProvider.askQuestion(text: text, photoPath: _pendingPhotoPath);
     _pendingPhotoPath = null;
     _scrollToBottom();
   }
@@ -96,8 +93,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Center(
-                child: Text('G', style: TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
+                child: Text(
+                  'G',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 10),
@@ -105,16 +108,21 @@ class _ChatScreenState extends State<ChatScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('पढ़ो गुरु', style: TextStyle(fontSize: 16)),
-                Text('ऑनलाइन • AI Tutor',
-                    style: TextStyle(fontSize: 11, color: Colors.white70)),
+                Text(
+                  'ऑनलाइन • AI Tutor',
+                  style: TextStyle(fontSize: 11, color: Colors.white70),
+                ),
               ],
             ),
             if (chatProvider.isStreaming) ...[
               const SizedBox(width: 8),
               const SizedBox(
-                width: 16, height: 16,
+                width: 16,
+                height: 16,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2, color: Colors.white70),
+                  strokeWidth: 2,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ],
@@ -143,18 +151,13 @@ class _ChatScreenState extends State<ChatScreen> {
 
           // Loading indicator
           if (chatProvider.isLoading)
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: _ChatShimmer(),
-            ),
+            const Padding(padding: EdgeInsets.all(16), child: _ChatShimmer()),
 
           // Streaming indicator
-          if (chatProvider.isStreaming)
-            _buildStreamingBar(chatProvider),
+          if (chatProvider.isStreaming) _buildStreamingBar(chatProvider),
 
           // Error
-          if (chatProvider.error != null)
-            _buildErrorBanner(chatProvider),
+          if (chatProvider.error != null) _buildErrorBanner(chatProvider),
 
           // Input bar
           _buildInputBar(chatProvider),
@@ -172,24 +175,36 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 80, height: 80,
+              width: 80,
+              height: 80,
               decoration: BoxDecoration(
                 gradient: AppTheme.primaryGradient,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Icon(Icons.auto_awesome, color: Colors.white, size: 36),
+              child: const Icon(
+                Icons.auto_awesome,
+                color: Colors.white,
+                size: 36,
+              ),
             ),
             const SizedBox(height: 20),
             const Text(
               'आपका AI Tutor तैयार है!',
               style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.textPrimary,
+              ),
             ),
             const SizedBox(height: 8),
             const Text(
               'फोटो खींचे या टाइप करके सवाल पूछें\nNCERT का हर सवाल हिंदी में समझें',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: AppTheme.textSecondary, height: 1.5),
+              style: TextStyle(
+                fontSize: 14,
+                color: AppTheme.textSecondary,
+                height: 1.5,
+              ),
             ),
             const SizedBox(height: 24),
             OutlinedButton.icon(
@@ -208,12 +223,18 @@ class _ChatScreenState extends State<ChatScreen> {
     return ListView.builder(
       controller: _scrollController,
       padding: const EdgeInsets.only(top: 8, bottom: 8),
-      itemCount: chatProvider.messages.length + (chatProvider.isStreaming ? 1 : 0),
+      itemCount:
+          chatProvider.messages.length + (chatProvider.isStreaming ? 1 : 0),
       itemBuilder: (context, index) {
         // Streaming placeholder
         if (index == chatProvider.messages.length && chatProvider.isStreaming) {
           return Padding(
-            padding: const EdgeInsets.only(left: 16, right: 48, top: 8, bottom: 4),
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 48,
+              top: 8,
+              bottom: 4,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -222,7 +243,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   decoration: BoxDecoration(
                     color: AppTheme.surface,
                     borderRadius: BorderRadius.circular(16),
-                    border: const Border(left: BorderSide(color: AppTheme.primary, width: 3)),
+                    border: const Border(
+                      left: BorderSide(color: AppTheme.primary, width: 3),
+                    ),
                   ),
                   child: Text(
                     chatProvider.streamingText,
@@ -232,7 +255,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 const Padding(
                   padding: EdgeInsets.only(left: 4, top: 4),
                   child: SizedBox(
-                    width: 16, height: 16,
+                    width: 16,
+                    height: 16,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   ),
                 ),
@@ -269,7 +293,8 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Row(
         children: [
           const SizedBox(
-            width: 14, height: 14,
+            width: 14,
+            height: 14,
             child: CircularProgressIndicator(strokeWidth: 2),
           ),
           const SizedBox(width: 8),
@@ -279,7 +304,11 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           const Spacer(),
           GestureDetector(
-            child: const Icon(Icons.stop_circle_outlined, size: 18, color: AppTheme.error),
+            child: const Icon(
+              Icons.stop_circle_outlined,
+              size: 18,
+              color: AppTheme.error,
+            ),
           ),
         ],
       ),
@@ -321,7 +350,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildInputBar(ChatProvider chatProvider) {
     return Container(
       padding: EdgeInsets.only(
-        left: 12, right: 12, top: 8,
+        left: 12,
+        right: 12,
+        top: 8,
         bottom: MediaQuery.of(context).padding.bottom + 8,
       ),
       decoration: BoxDecoration(
@@ -340,13 +371,17 @@ class _ChatScreenState extends State<ChatScreen> {
           GestureDetector(
             onTap: () => context.push(AppRoutes.camera),
             child: Container(
-              width: 40, height: 40,
+              width: 40,
+              height: 40,
               decoration: BoxDecoration(
                 color: AppTheme.background,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.camera_alt_outlined,
-                  color: AppTheme.primary, size: 20),
+              child: const Icon(
+                Icons.camera_alt_outlined,
+                color: AppTheme.primary,
+                size: 20,
+              ),
             ),
           ),
           const SizedBox(width: 8),
@@ -368,7 +403,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 10),
                   hintStyle: TextStyle(
-                    fontSize: 14, color: AppTheme.textHint,
+                    fontSize: 14,
+                    color: AppTheme.textHint,
                     fontFamily: 'NotoSansDevanagari',
                   ),
                 ),
@@ -382,7 +418,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 ? _sendMessage
                 : () {}, // TODO: Voice input
             child: Container(
-              width: 40, height: 40,
+              width: 40,
+              height: 40,
               decoration: BoxDecoration(
                 gradient: _textController.text.trim().isNotEmpty
                     ? AppTheme.primaryGradient
@@ -421,15 +458,18 @@ class _ChatScreenState extends State<ChatScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 40, height: 4,
+                width: 40,
+                height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: AppTheme.divider,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const Text('शेयर करें',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const Text(
+                'शेयर करें',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 16),
               ListTile(
                 leading: const Icon(Icons.copy, color: Color(0xFF1565C0)),
@@ -438,7 +478,8 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               ListTile(
                 leading: Container(
-                  width: 24, height: 24,
+                  width: 24,
+                  height: 24,
                   decoration: BoxDecoration(
                     color: const Color(0xFF25D366),
                     borderRadius: BorderRadius.circular(6),
@@ -500,27 +541,32 @@ class _ChatShimmerState extends State<_ChatShimmer>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 100, height: 14,
+                width: 100,
+                height: 14,
                 decoration: BoxDecoration(
                   color: AppTheme.divider.withValues(alpha: opacity),
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
               const SizedBox(height: 8),
-              ...List.generate(3, (i) => Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Container(
-                  width: 200.0 + (i * 40),
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: AppTheme.divider.withValues(alpha: opacity),
-                    borderRadius: BorderRadius.circular(4),
+              ...List.generate(
+                3,
+                (i) => Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    width: 200.0 + (i * 40),
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: AppTheme.divider.withValues(alpha: opacity),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                 ),
-              )),
+              ),
               const SizedBox(height: 8),
               Container(
-                width: 80, height: 12,
+                width: 80,
+                height: 12,
                 decoration: BoxDecoration(
                   color: AppTheme.divider.withValues(alpha: opacity),
                   borderRadius: BorderRadius.circular(4),

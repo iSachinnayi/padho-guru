@@ -40,25 +40,29 @@ class AnswerModel {
         'अभिलम्ब (Normal) - वह काल्पनिक रेखा जो आपतन बिंदु पर सतह के लंबवत होती है। इसे ON द्वारा दर्शाया जाता है।',
         'परावर्तन के नियम: (१) आपतित कोण = परावर्तित कोण, (२) आपतित किरण, परावर्तित किरण और अभिलम्ब एक ही तल में होते हैं।',
       ],
-      relatedTopics: ['प्रकाश का अपवर्तन', 'गोलीय दर्पण', 'प्रकाश का प्रकीर्णन'],
+      relatedTopics: [
+        'प्रकाश का अपवर्तन',
+        'गोलीय दर्पण',
+        'प्रकाश का प्रकीर्णन',
+      ],
       subject: 'Science',
       chapter: 'Chapter 10 - प्रकाश',
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'questionText': questionText,
-        'answer': answer,
-        'steps': steps,
-        'relatedTopics': relatedTopics ?? [],
-        'subject': subject ?? '',
-        'chapter': chapter ?? '',
-        'language': language,
-        'isBookmarked': isBookmarked,
-        'wasHelpful': wasHelpful,
-        'createdAt': createdAt.toIso8601String(),
-      };
+    'id': id,
+    'questionText': questionText,
+    'answer': answer,
+    'steps': steps,
+    'relatedTopics': relatedTopics ?? [],
+    'subject': subject ?? '',
+    'chapter': chapter ?? '',
+    'language': language,
+    'isBookmarked': isBookmarked,
+    'wasHelpful': wasHelpful,
+    'createdAt': createdAt.toIso8601String(),
+  };
 
   factory AnswerModel.fromJson(Map<String, dynamic> json, String id) {
     return AnswerModel(
@@ -78,10 +82,7 @@ class AnswerModel {
     );
   }
 
-  AnswerModel copyWith({
-    bool? isBookmarked,
-    bool? wasHelpful,
-  }) {
+  AnswerModel copyWith({bool? isBookmarked, bool? wasHelpful}) {
     return AnswerModel(
       id: id,
       questionText: questionText,

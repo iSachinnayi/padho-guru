@@ -5,6 +5,7 @@ import 'config/routes.dart';
 import 'config/constants.dart';
 import 'providers/auth_provider.dart';
 import 'providers/chat_provider.dart';
+import 'providers/syllabus_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ class PadhoGuruApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ChatProvider()),
+        ChangeNotifierProvider(create: (_) => SyllabusProvider()),
       ],
       child: MaterialApp.router(
         title: AppConstants.storeTitle,

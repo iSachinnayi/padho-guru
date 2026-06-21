@@ -55,10 +55,7 @@ class _CameraScreenState extends State<CameraScreen> {
     await Future.delayed(const Duration(milliseconds: 500));
 
     if (mounted) {
-      context.push(
-        AppRoutes.chat,
-        extra: {'photoPath': _capturedImage!.path},
-      );
+      context.push(AppRoutes.chat, extra: {'photoPath': _capturedImage!.path});
       setState(() => _isProcessing = false);
     }
   }
@@ -76,7 +73,9 @@ class _CameraScreenState extends State<CameraScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: _capturedImage == null ? _buildCameraPreview() : _buildReviewScreen(),
+        child: _capturedImage == null
+            ? _buildCameraPreview()
+            : _buildReviewScreen(),
       ),
     );
   }
@@ -97,10 +96,7 @@ class _CameraScreenState extends State<CameraScreen> {
         ),
 
         // Camera grid pattern overlay
-        CustomPaint(
-          size: Size.infinite,
-          painter: _GridPainter(),
-        ),
+        CustomPaint(size: Size.infinite, painter: _GridPainter()),
 
         // Camera guide overlay
         CameraOverlay(previewHeight: MediaQuery.of(context).size.height),
@@ -116,10 +112,7 @@ class _CameraScreenState extends State<CameraScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Close button
-                _TopIconButton(
-                  icon: Icons.close,
-                  onTap: () => context.pop(),
-                ),
+                _TopIconButton(icon: Icons.close, onTap: () => context.pop()),
                 // Header text
                 const Text(
                   'फोटो खींचो',
@@ -157,8 +150,11 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Icon(Icons.photo_library_outlined,
-                      color: Colors.white, size: 22),
+                  child: const Icon(
+                    Icons.photo_library_outlined,
+                    color: Colors.white,
+                    size: 22,
+                  ),
                 ),
               ),
               const SizedBox(width: 30),
@@ -219,13 +215,17 @@ class _CameraScreenState extends State<CameraScreen> {
               TextButton.icon(
                 onPressed: _retake,
                 icon: const Icon(Icons.refresh, color: Colors.white),
-                label: const Text('पुनः लें',
-                    style: TextStyle(color: Colors.white)),
+                label: const Text(
+                  'पुनः लें',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               TextButton(
                 onPressed: () {}, // Crop functionality
-                child: const Text('क्रॉप करें',
-                    style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'क्रॉप करें',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
@@ -241,8 +241,11 @@ class _CameraScreenState extends State<CameraScreen> {
                 File(_capturedImage!.path),
                 fit: BoxFit.contain,
                 errorBuilder: (_, __, ___) => const Center(
-                  child: Icon(Icons.broken_image,
-                      color: Colors.white54, size: 64),
+                  child: Icon(
+                    Icons.broken_image,
+                    color: Colors.white54,
+                    size: 64,
+                  ),
                 ),
               ),
             ),

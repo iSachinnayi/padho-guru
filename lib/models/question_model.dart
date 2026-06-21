@@ -21,15 +21,15 @@ class QuestionModel {
   }) : createdAt = createdAt ?? DateTime.now();
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'text': text,
-        'photoUrl': photoUrl ?? '',
-        'subject': subject ?? '',
-        'class': studentClass ?? '',
-        'board': board ?? '',
-        'language': language,
-        'createdAt': createdAt.toIso8601String(),
-      };
+    'id': id,
+    'text': text,
+    'photoUrl': photoUrl ?? '',
+    'subject': subject ?? '',
+    'class': studentClass ?? '',
+    'board': board ?? '',
+    'language': language,
+    'createdAt': createdAt.toIso8601String(),
+  };
 
   factory QuestionModel.fromJson(Map<String, dynamic> json, String id) {
     return QuestionModel(

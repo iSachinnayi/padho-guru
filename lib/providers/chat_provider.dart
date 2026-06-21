@@ -43,12 +43,14 @@ class ChatProvider extends ChangeNotifier {
     _pendingQuestion = question;
 
     // Add user message
-    _messages.add(ChatMessage(
-      text: text,
-      photoPath: photoPath,
-      isUser: true,
-      timestamp: DateTime.now(),
-    ));
+    _messages.add(
+      ChatMessage(
+        text: text,
+        photoPath: photoPath,
+        isUser: true,
+        timestamp: DateTime.now(),
+      ),
+    );
     notifyListeners();
 
     try {
@@ -65,14 +67,16 @@ class ChatProvider extends ChangeNotifier {
 
       // Final answer
       final answer = await _aiService.askQuestion(question);
-      _messages.add(ChatMessage(
-        text: answer.answer,
-        steps: answer.steps,
-        relatedTopics: answer.relatedTopics,
-        isUser: false,
-        answerModel: answer,
-        timestamp: DateTime.now(),
-      ));
+      _messages.add(
+        ChatMessage(
+          text: answer.answer,
+          steps: answer.steps,
+          relatedTopics: answer.relatedTopics,
+          isUser: false,
+          answerModel: answer,
+          timestamp: DateTime.now(),
+        ),
+      );
 
       _isStreaming = false;
       _streamingText = '';

@@ -63,7 +63,10 @@ class ChatBubble extends StatelessWidget {
                     height: 80,
                     width: 80,
                     color: AppTheme.divider,
-                    child: const Icon(Icons.broken_image, color: AppTheme.textHint),
+                    child: const Icon(
+                      Icons.broken_image,
+                      color: AppTheme.textHint,
+                    ),
                   ),
                 ),
               ),
@@ -73,9 +76,9 @@ class ChatBubble extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: AppTheme.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16).copyWith(
-                bottomRight: Radius.zero,
-              ),
+              borderRadius: BorderRadius.circular(
+                16,
+              ).copyWith(bottomRight: Radius.zero),
             ),
             child: Text(
               text,
@@ -165,7 +168,10 @@ class ChatBubble extends StatelessWidget {
                 if (steps != null && steps!.isNotEmpty) ...[
                   const SizedBox(height: 16),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: AppTheme.primary.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8),
@@ -175,7 +181,11 @@ class ChatBubble extends StatelessWidget {
                       children: [
                         const Row(
                           children: [
-                            Icon(Icons.menu_book, size: 16, color: AppTheme.primary),
+                            Icon(
+                              Icons.menu_book,
+                              size: 16,
+                              color: AppTheme.primary,
+                            ),
                             SizedBox(width: 6),
                             Text(
                               'चरण-दर-चरण समझें',
@@ -198,7 +208,9 @@ class ChatBubble extends StatelessWidget {
                                   width: 20,
                                   height: 20,
                                   decoration: BoxDecoration(
-                                    color: AppTheme.primary.withValues(alpha: 0.1),
+                                    color: AppTheme.primary.withValues(
+                                      alpha: 0.1,
+                                    ),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Center(
@@ -238,15 +250,18 @@ class ChatBubble extends StatelessWidget {
                     spacing: 6,
                     runSpacing: 4,
                     children: relatedTopics!
-                        .map((topic) => ActionChip(
-                              label: Text(
-                                topic,
-                                style: const TextStyle(fontSize: 11),
-                              ),
-                              padding: EdgeInsets.zero,
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              onPressed: () => onRelatedTopicTap?.call(topic),
-                            ))
+                        .map(
+                          (topic) => ActionChip(
+                            label: Text(
+                              topic,
+                              style: const TextStyle(fontSize: 11),
+                            ),
+                            padding: EdgeInsets.zero,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            onPressed: () => onRelatedTopicTap?.call(topic),
+                          ),
+                        )
                         .toList(),
                   ),
                 ],
@@ -255,14 +270,18 @@ class ChatBubble extends StatelessWidget {
                 Row(
                   children: [
                     _ActionButton(
-                      icon: wasHelpful ? Icons.thumb_up : Icons.thumb_up_outlined,
+                      icon: wasHelpful
+                          ? Icons.thumb_up
+                          : Icons.thumb_up_outlined,
                       label: 'उपयोगी',
                       isActive: wasHelpful,
                       onTap: () => onHelpful?.call(!wasHelpful),
                     ),
                     const SizedBox(width: 8),
                     _ActionButton(
-                      icon: isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                      icon: isBookmarked
+                          ? Icons.bookmark
+                          : Icons.bookmark_outline,
                       label: 'सेव करें',
                       isActive: isBookmarked,
                       onTap: onBookmark,
