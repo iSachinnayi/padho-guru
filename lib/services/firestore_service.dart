@@ -24,11 +24,7 @@ class FirestoreService {
 
   // ─── Chat History ────────────────────────────────────────
   Future<void> saveChatHistory(String uid, Map<String, dynamic> data) async {
-    await _db
-        .collection('users')
-        .doc(uid)
-        .collection('history')
-        .add(data);
+    await _db.collection('users').doc(uid).collection('history').add(data);
   }
 
   Stream<QuerySnapshot> getChatHistory(String uid) {
@@ -41,14 +37,21 @@ class FirestoreService {
   }
 
   // ─── Bookmarks ───────────────────────────────────────────
-  Future<void> toggleBookmark(String uid, String answerId, bool bookmarked) async {
+  Future<void> toggleBookmark(
+    String uid,
+    String answerId,
+    bool bookmarked,
+  ) async {
     if (bookmarked) {
       await _db
           .collection('users')
           .doc(uid)
           .collection('bookmarks')
           .doc(answerId)
-          .set({'answerId': answerId, 'createdAt': DateTime.now().toIso8601String()});
+          .set({
+            'answerId': answerId,
+            'createdAt': DateTime.now().toIso8601String(),
+          });
     } else {
       await _db
           .collection('users')

@@ -64,8 +64,10 @@ void main() async {
 
   // GET /health — Simple health check (plain Shelf handler)
   router.get('/health', (Request request) async {
-    return Response.ok('{"status":"OK"}',
-        headers: {'Content-Type': 'application/json'});
+    return Response.ok(
+      '{"status":"OK"}',
+      headers: {'Content-Type': 'application/json'},
+    );
   });
 
   // POST /ask — Ask a question via Genkit flow

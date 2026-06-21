@@ -49,7 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: const Center(
-                  child: Icon(Icons.auto_stories, color: Colors.white, size: 50),
+                  child: Icon(
+                    Icons.auto_stories,
+                    color: Colors.white,
+                    size: 50,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
