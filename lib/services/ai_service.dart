@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:http/http.dart' as http;
 import '../models/question_model.dart';
 import '../models/answer_model.dart';
@@ -55,7 +56,8 @@ class AIService {
       } else {
         throw Exception('Server error: ${response.statusCode}');
       }
-    } catch (e) {
+    } catch (e, stack) {
+      FirebaseCrashlytics.instance.recordError(e, stack);
       // If server is not available, return mock data for development
       return _getMockAnswer(question);
     }

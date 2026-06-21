@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import '../config/theme.dart';
 import '../config/routes.dart';
+import '../providers/auth_provider.dart';
 import '../widgets/streak_bar.dart';
 import '../widgets/subject_card.dart';
 import '../widgets/haptic_util.dart';
@@ -112,9 +114,16 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
               child: Row(
                 children: [
-                  Text(
-                    'नमस्ते! 👋',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                  Consumer<AuthProvider>(
+                    builder: (context, auth, _) {
+                      final name = auth.user?.name;
+                      return Text(
+                        name != null && name.isNotEmpty
+                            ? 'नमस्ते, $name! 👋'
+                            : 'नमस्ते! 👋',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      );
+                    },
                   ),
                   const Spacer(),
                   Text(
@@ -133,6 +142,103 @@ class _HomeScreenState extends State<HomeScreen> {
             const StreakBar(streak: 7, questionsToday: 3, totalQuestions: 142),
 
             const SizedBox(height: 8),
+
+            // ─── Quick Stats ───────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppTheme.surface,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppTheme.cardShadow,
+                      blurRadius: 6,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    // Today's questions
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              color: AppTheme.primary.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.question_answer_outlined,
+                                size: 16, color: AppTheme.primary),
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('आज के सवाल',
+                                    style: TextStyle(
+                                        fontSize: 11, color: AppTheme.textHint)),
+                                Text('3/5',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppTheme.textPrimary)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Divider
+                    Container(
+                      width: 1,
+                      height: 30,
+                      color: AppTheme.divider,
+                    ),
+                    // Streak
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFF6F00).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.local_fire_department_outlined,
+                                size: 16, color: Color(0xFFFF6F00)),
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('लगातार',
+                                    style: TextStyle(
+                                        fontSize: 11, color: AppTheme.textHint)),
+                                Text('7 दिन',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppTheme.textPrimary)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
 
             // ─── Hero Card ────────────────────────────────
             Padding(

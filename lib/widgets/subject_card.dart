@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../config/theme.dart';
 
 /// 📚 पढ़ो गुरु — Subject Card Widget
-class SubjectCard extends StatelessWidget {
+class SubjectCard extends StatefulWidget {
   final String name;
   final String icon;
   final String chapterCount;
@@ -23,22 +23,36 @@ class SubjectCard extends StatelessWidget {
   });
 
   @override
+  State<SubjectCard> createState() => _SubjectCardState();
+}
+
+class _SubjectCardState extends State<SubjectCard> {
+  bool _isPressed = false;
+
+  @override
   Widget build(BuildContext context) {
-    final cardColor = color ?? AppTheme.primary;
+    final cardColor = widget.color ?? AppTheme.primary;
 
     return GestureDetector(
-      onTap: onTap,
-      onLongPress: onLongPress,
+      onTap: widget.onTap,
+      onLongPress: widget.onLongPress,
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) => setState(() => _isPressed = false),
+      onTapCancel: () => setState(() => _isPressed = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeInOut,
+        transform: _isPressed
+            ? (Matrix4.diagonal3Values(1.03, 1.03, 1.0))
+            : Matrix4.identity(),
         decoration: BoxDecoration(
           color: AppTheme.surface,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: AppTheme.cardShadow,
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              blurRadius: _isPressed ? 12 : 8,
+              offset: Offset(0, _isPressed ? 4 : 2),
             ),
           ],
         ),
@@ -57,13 +71,13 @@ class SubjectCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: Text(icon, style: const TextStyle(fontSize: 22)),
+                  child: Text(widget.icon, style: const TextStyle(fontSize: 22)),
                 ),
               ),
               const Spacer(),
               // Subject Name
               Text(
-                name,
+                widget.name,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -77,12 +91,12 @@ class SubjectCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '$chapterCount अध्याय',
+                    '${widget.chapterCount} अध्याय',
                     style: TextStyle(fontSize: 11, color: AppTheme.textHint),
                   ),
                   const Spacer(),
                   // Mini progress
-                  if (progress > 0)
+                  if (widget.progress > 0)
                     Container(
                       width: 6,
                       height: 6,

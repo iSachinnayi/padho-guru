@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import '../config/constants.dart';
 
 /// पढ़ो गुरु — Payment Service (Google Play + Apple IAP)
@@ -10,9 +11,13 @@ class PaymentService {
 
   // ─── Initialize ───────────────────────────────────────────
   Future<bool> initialize() async {
-    _isAvailable = await _purchase.isAvailable();
-    if (_isAvailable) {
-      _subscription = _purchase.purchaseStream.listen(_onPurchaseUpdate);
+    try {
+      _isAvailable = await _purchase.isAvailable();
+      if (_isAvailable) {
+        _subscription = _purchase.purchaseStream.listen(_onPurchaseUpdate);
+      }
+    } catch (e, stack) {
+      FirebaseCrashlytics.instance.recordError(e, stack);
     }
     return _isAvailable;
   }

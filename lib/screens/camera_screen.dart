@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import '../config/routes.dart';
 import '../widgets/camera_overlay.dart';
 import '../widgets/haptic_util.dart';
@@ -19,6 +20,7 @@ class _CameraScreenState extends State<CameraScreen> {
   XFile? _capturedImage;
   bool _flashOn = false;
   bool _isProcessing = false;
+  double _captureScale = 1.0;
 
   // ─── Capture Photo ───────────────────────────────────────
   Future<void> _capturePhoto() async {
@@ -31,7 +33,8 @@ class _CameraScreenState extends State<CameraScreen> {
       if (photo != null && mounted) {
         setState(() => _capturedImage = photo);
       }
-    } catch (e) {
+    } catch (e, stack) {
+      FirebaseCrashlytics.instance.recordError(e, stack);
       // Fallback to gallery if camera fails
       await _pickFromGallery();
     }
@@ -151,11 +154,24 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Icon(
-                    Icons.photo_library_outlined,
-                    color: Colors.white,
-                    size: 22,
-                  ),
+                  child: _capturedImage != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.file(
+                            File(_capturedImage!.path),
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => const Icon(
+                              Icons.photo_library_outlined,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                          ),
+                        )
+                      : const Icon(
+                          Icons.photo_library_outlined,
+                          color: Colors.white,
+                          size: 22,
+                        ),
                 ),
               ),
               const SizedBox(width: 30),
@@ -163,20 +179,29 @@ class _CameraScreenState extends State<CameraScreen> {
               GestureDetector(
                 onTap: () {
                   HapticUtil.mediumTap();
+                  setState(() => _captureScale = 0.9);
+                  Future.delayed(const Duration(milliseconds: 150), () {
+                    if (mounted) setState(() => _captureScale = 1.0);
+                  });
                   _capturePhoto();
                 },
-                child: Container(
-                  width: 72,
-                  height: 72,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 4),
-                  ),
+                child: AnimatedScale(
+                  scale: _captureScale,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.elasticOut,
                   child: Container(
-                    margin: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
+                    width: 72,
+                    height: 72,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white,
+                      border: Border.all(color: Colors.white, width: 4),
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -225,7 +250,14 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
               ),
               TextButton(
-                onPressed: () {}, // Crop functionality
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('क्रॉप सुविधा जल्द आ रही है'),
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                },
                 child: const Text(
                   'क्रॉप करें',
                   style: TextStyle(color: Colors.white),

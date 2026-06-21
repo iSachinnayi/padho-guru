@@ -14,11 +14,14 @@ class AppConstants {
   static const int freeQuestionsPerDay = 5;
   static const int monthlyPriceINR = 99;
   static const int yearlyPriceINR = 999;
+  static const int familyPriceINR = 199;
   static const int trialDays = 3;
+  static const int yearlyTrialDays = 7;
 
   // ─── Subscription Product IDs ──────────────────────────────
   static const String monthlyProductId = 'padho_guru_monthly';
   static const String yearlyProductId = 'padho_guru_yearly';
+  static const String familyProductId = 'padho_guru_family';
 
   // ─── Firestore Collections ─────────────────────────────────
   static const String usersCollection = 'users';
