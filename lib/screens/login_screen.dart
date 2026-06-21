@@ -299,11 +299,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  buildCounter: (context,
-                                      {required currentLength,
-                                      required isFocused,
-                                      required maxLength}) =>
-                                      null,
+                                  buildCounter:
+                                      (
+                                        context, {
+                                        required currentLength,
+                                        required isFocused,
+                                        required maxLength,
+                                      }) => null,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),

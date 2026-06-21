@@ -8,7 +8,8 @@ class AchievementsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Achievements')),
       body: const Center(
-          child: Text('Achievements Screen - Coming in Sprint 5')),
+        child: Text('Achievements Screen - Coming in Sprint 5'),
+      ),
     );
   }
 }
