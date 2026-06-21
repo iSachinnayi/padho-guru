@@ -34,13 +34,17 @@ class AIService {
           id: question.id,
           questionText: question.text,
           answer: result['answer'] ?? '',
-          steps: (result['steps'] as List<dynamic>?)
-                  ?.map((s) => s is Map<String, dynamic>
-                      ? '${s['stepNumber']}. ${s['explanation']}'
-                      : s.toString())
+          steps:
+              (result['steps'] as List<dynamic>?)
+                  ?.map(
+                    (s) => s is Map<String, dynamic>
+                        ? '${s['stepNumber']}. ${s['explanation']}'
+                        : s.toString(),
+                  )
                   .toList() ??
               [],
-          relatedTopics: (result['relatedTopics'] as List<dynamic>?)
+          relatedTopics:
+              (result['relatedTopics'] as List<dynamic>?)
                   ?.map((e) => e.toString())
                   .toList() ??
               [],
