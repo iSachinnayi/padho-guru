@@ -57,10 +57,7 @@ class SubjectCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: Text(
-                    icon,
-                    style: const TextStyle(fontSize: 22),
-                  ),
+                  child: Text(icon, style: const TextStyle(fontSize: 22)),
                 ),
               ),
               const Spacer(),
@@ -81,10 +78,7 @@ class SubjectCard extends StatelessWidget {
                 children: [
                   Text(
                     '$chapterCount अध्याय',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: AppTheme.textHint,
-                    ),
+                    style: TextStyle(fontSize: 11, color: AppTheme.textHint),
                   ),
                   const Spacer(),
                   // Mini progress

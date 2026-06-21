@@ -16,21 +16,58 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentNavIndex = 0;
 
   final List<Map<String, dynamic>> _subjects = [
-    {'name': 'Science', 'icon': '🔬', 'chapters': '10', 'color': const Color(0xFF2E7D32)},
-    {'name': 'Maths', 'icon': '📐', 'chapters': '8', 'color': const Color(0xFF1565C0)},
-    {'name': 'Hindi', 'icon': '📖', 'chapters': '6', 'color': const Color(0xFFE65100)},
-    {'name': 'English', 'icon': '📝', 'chapters': '7', 'color': const Color(0xFF6A1B9A)},
-    {'name': 'S.St.', 'icon': '🌍', 'chapters': '9', 'color': const Color(0xFF00838F)},
-    {'name': 'Sanskrit', 'icon': '🪷', 'chapters': '5', 'color': const Color(0xFFC62828)},
+    {
+      'name': 'Science',
+      'icon': '🔬',
+      'chapters': '10',
+      'color': const Color(0xFF2E7D32),
+    },
+    {
+      'name': 'Maths',
+      'icon': '📐',
+      'chapters': '8',
+      'color': const Color(0xFF1565C0),
+    },
+    {
+      'name': 'Hindi',
+      'icon': '📖',
+      'chapters': '6',
+      'color': const Color(0xFFE65100),
+    },
+    {
+      'name': 'English',
+      'icon': '📝',
+      'chapters': '7',
+      'color': const Color(0xFF6A1B9A),
+    },
+    {
+      'name': 'S.St.',
+      'icon': '🌍',
+      'chapters': '9',
+      'color': const Color(0xFF00838F),
+    },
+    {
+      'name': 'Sanskrit',
+      'icon': '🪷',
+      'chapters': '5',
+      'color': const Color(0xFFC62828),
+    },
   ];
 
   void _onNavChanged(int index) {
     setState(() => _currentNavIndex = index);
     switch (index) {
-      case 0: break; // Home
-      case 1: context.push(AppRoutes.camera); break;
-      case 2: context.push(AppRoutes.syllabus); break;
-      case 3: context.push(AppRoutes.profile); break;
+      case 0:
+        break; // Home
+      case 1:
+        context.push(AppRoutes.camera);
+        break;
+      case 2:
+        context.push(AppRoutes.syllabus);
+        break;
+      case 3:
+        context.push(AppRoutes.profile);
+        break;
     }
   }
 
@@ -92,11 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             // Streak Bar
-            const StreakBar(
-              streak: 7,
-              questionsToday: 3,
-              totalQuestions: 142,
-            ),
+            const StreakBar(streak: 7, questionsToday: 3, totalQuestions: 142),
 
             const SizedBox(height: 8),
 
@@ -172,7 +205,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Text(
                                     'NCERT का AI Tutor हिंदी में समझाएगा',
                                     style: TextStyle(
-                                      color: Colors.white.withValues(alpha: 0.8),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.8,
+                                      ),
                                       fontSize: 12,
                                     ),
                                   ),
@@ -204,8 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     'आगे बढ़ो',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const Spacer(),
                   Text(
@@ -248,12 +283,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Row(
                           children: [
-                            Text(subject['icon'], style: const TextStyle(fontSize: 16)),
+                            Text(
+                              subject['icon'],
+                              style: const TextStyle(fontSize: 16),
+                            ),
                             const Spacer(),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
-                                color: (subject['color'] as Color).withValues(alpha: 0.1),
+                                color: (subject['color'] as Color).withValues(
+                                  alpha: 0.1,
+                                ),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -307,9 +350,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'तुम्हारे विषय',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 10),
@@ -403,13 +446,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 16),
               ListTile(
-                leading: const Icon(Icons.download_outlined, color: AppTheme.primary),
+                leading: const Icon(
+                  Icons.download_outlined,
+                  color: AppTheme.primary,
+                ),
                 title: const Text('अध्याय डाउनलोड करें'),
                 subtitle: const Text('ऑफलाइन पढ़ने के लिए'),
                 onTap: () => Navigator.pop(context),
               ),
               ListTile(
-                leading: const Icon(Icons.quiz_outlined, color: AppTheme.secondary),
+                leading: const Icon(
+                  Icons.quiz_outlined,
+                  color: AppTheme.secondary,
+                ),
                 title: const Text('प्रैक्टिस शुरू करें'),
                 subtitle: const Text('इस विषय के टेस्ट दें'),
                 onTap: () {

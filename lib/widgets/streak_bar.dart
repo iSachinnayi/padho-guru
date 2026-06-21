@@ -54,9 +54,7 @@ class StreakBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  streak > 0
-                      ? 'लगातार $streak दिन! 🔥'
-                      : 'आज पढ़ाई शुरू करो!',
+                  streak > 0 ? 'लगातार $streak दिन! 🔥' : 'आज पढ़ाई शुरू करो!',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

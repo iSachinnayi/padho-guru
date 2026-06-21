@@ -186,7 +186,10 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
@@ -219,12 +222,42 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _menuListSection(BuildContext context) {
     final menuItems = [
-      {'icon': Icons.history, 'label': 'हिस्ट्री', 'route': AppRoutes.history, 'color': AppTheme.primary},
-      {'icon': Icons.bookmark_outline, 'label': 'बुकमार्क', 'route': AppRoutes.bookmarks, 'color': const Color(0xFF6A1B9A)},
-      {'icon': Icons.emoji_events_outlined, 'label': 'उपलब्धियां', 'route': AppRoutes.achievements, 'color': AppTheme.secondary},
-      {'icon': Icons.quiz_outlined, 'label': 'प्रैक्टिस', 'route': AppRoutes.practice, 'color': const Color(0xFF2E7D32)},
-      {'icon': Icons.share_outlined, 'label': 'शेयर करें', 'route': null, 'color': const Color(0xFF00838F)},
-      {'icon': Icons.star_outline, 'label': 'रेट करें', 'route': null, 'color': const Color(0xFFE65100)},
+      {
+        'icon': Icons.history,
+        'label': 'हिस्ट्री',
+        'route': AppRoutes.history,
+        'color': AppTheme.primary,
+      },
+      {
+        'icon': Icons.bookmark_outline,
+        'label': 'बुकमार्क',
+        'route': AppRoutes.bookmarks,
+        'color': const Color(0xFF6A1B9A),
+      },
+      {
+        'icon': Icons.emoji_events_outlined,
+        'label': 'उपलब्धियां',
+        'route': AppRoutes.achievements,
+        'color': AppTheme.secondary,
+      },
+      {
+        'icon': Icons.quiz_outlined,
+        'label': 'प्रैक्टिस',
+        'route': AppRoutes.practice,
+        'color': const Color(0xFF2E7D32),
+      },
+      {
+        'icon': Icons.share_outlined,
+        'label': 'शेयर करें',
+        'route': null,
+        'color': const Color(0xFF00838F),
+      },
+      {
+        'icon': Icons.star_outline,
+        'label': 'रेट करें',
+        'route': null,
+        'color': const Color(0xFFE65100),
+      },
     ];
 
     return Column(
@@ -237,7 +270,11 @@ class ProfileScreen extends StatelessWidget {
               color: (item['color'] as Color).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(item['icon'] as IconData, color: item['color'] as Color, size: 20),
+            child: Icon(
+              item['icon'] as IconData,
+              color: item['color'] as Color,
+              size: 20,
+            ),
           ),
           title: Text(
             item['label'] as String,
