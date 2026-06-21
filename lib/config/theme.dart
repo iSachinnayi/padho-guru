@@ -53,6 +53,14 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: background,
 
+      // ─── Page Transitions ──────────────────────────────────
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+        },
+      ),
+
       // ─── Typography ───────────────────────────────────────
       textTheme: GoogleFonts.notoSansDevanagariTextTheme(
         const TextTheme(
