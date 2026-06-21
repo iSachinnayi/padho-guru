@@ -15,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings_outlined),
-            onPressed: () {},
+            onPressed: () => context.push('/settings'),
           ),
         ],
       ),
@@ -67,7 +67,16 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push('/settings');
+                    
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('प्रोफ़ाइल एडिट जल्द आ रहा है'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
                     icon: const Icon(Icons.edit_outlined, size: 16),
                     label: const Text('संपादित करें'),
                   ),

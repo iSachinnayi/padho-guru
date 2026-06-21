@@ -416,7 +416,15 @@ class _ChatScreenState extends State<ChatScreen> {
           GestureDetector(
             onTap: _textController.text.trim().isNotEmpty
                 ? _sendMessage
-                : () {}, // TODO: Voice input
+                : () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('वॉइस इनपुट जल्द आ रहा है'),
+                      behavior: SnackBarBehavior.floating,
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
             child: Container(
               width: 40,
               height: 40,

@@ -35,6 +35,17 @@ class PadhoGuruApp extends StatelessWidget {
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,
         routerConfig: AppRoutes.router,
+        builder: (context, child) {
+          // Sync auth user ID to ChatProvider for Firestore history
+          final auth = context.watch<AuthProvider>();
+          final chat = context.watch<ChatProvider>();
+          if (auth.user?.uid != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              chat.setUserId(auth.user!.uid);
+            });
+          }
+          return child!;
+        },
       ),
     );
   }

@@ -71,7 +71,10 @@ class _SubjectCardState extends State<SubjectCard> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: Text(widget.icon, style: const TextStyle(fontSize: 22)),
+                  child: Text(
+                    widget.icon,
+                    style: const TextStyle(fontSize: 22),
+                  ),
                 ),
               ),
               const Spacer(),

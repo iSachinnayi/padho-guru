@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Users Collection ──────────────────────────────────
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Chat history subcollection
+      match /history/{docId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      // Bookmarks subcollection
+      match /bookmarks/{docId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // ─── Cached Answers ────────────────────────────────────
+    match /cached_answers/{hash} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // ─── Deny all other access ─────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

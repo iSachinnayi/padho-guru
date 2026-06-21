@@ -170,273 +170,284 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               child: Center(
                 child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 40),
 
-                  // ─── Logo ──────────────────────────────────
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      gradient: AppTheme.primaryGradient,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'पढ़ो',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'NotoSansDevanagari',
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
-                  // ─── App Name ──────────────────────────────
-                  Text(
-                    AppConstants.appName,
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: AppTheme.primary,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-
-                  Text(
-                    AppConstants.tagline,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppTheme.textSecondary,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 48),
-
-                  // ─── Phone Input ───────────────────────────
-                  if (!_isOTPSent) ...[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppTheme.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.cardShadow,
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
+                        // ─── Logo ──────────────────────────────────
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            gradient: AppTheme.primaryGradient,
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          Text(
-                            'अपना फोन नंबर दर्ज करें',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              // Country Code
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 14,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: AppTheme.divider),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Text(
-                                  _selectedCountryCode,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              // Phone Number
-                              Expanded(
-                                child: TextFormField(
-                                  controller: _phoneController,
-                                  keyboardType: TextInputType.phone,
-                                  maxLength: 10,
-                                  decoration: InputDecoration(
-                                    hintText: '98765 43210',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: authProvider.isLoading
-                                  ? null
-                                  : _sendOTP,
-                              child: authProvider.isLoading
-                                  ? const SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : const Text(
-                                      'OTP भेजें',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-
-                  // ─── OTP Input ─────────────────────────────
-                  if (_isOTPSent) ...[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppTheme.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.cardShadow,
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          Text(
-                            'OTP दर्ज करें',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '$_selectedCountryCode ${_phoneController.text} पर OTP भेजा गया',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const SizedBox(height: 24),
-                          // OTP Input Boxes
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: List.generate(6, (index) {
-                              return SizedBox(
-                                width: 48,
-                                height: 56,
-                                child: TextFormField(
-                                  controller: _otpControllers[index],
-                                  focusNode: _otpFocusNodes[index],
-                                  keyboardType: TextInputType.number,
-                                  textAlign: TextAlign.center,
-                                  maxLength: 1,
-                                  style: const TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  buildCounter:
-                                      (
-                                        context, {
-                                        required currentLength,
-                                        required isFocused,
-                                        required maxLength,
-                                      }) => null,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    filled: true,
-                                    fillColor: AppTheme.background,
-                                  ),
-                                  onChanged: (value) =>
-                                      _onOTPChanged(value, index),
-                                ),
-                              );
-                            }),
-                          ),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: authProvider.isLoading
-                                  ? null
-                                  : _verifyOTP,
-                              child: authProvider.isLoading
-                                  ? const SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : const Text(
-                                      'सत्यापित करें',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          // Resend Timer
-                          TextButton(
-                            onPressed: _timerSeconds <= 0
-                                ? () {
-                                    _sendOTP();
-                                  }
-                                : null,
+                          child: const Center(
                             child: Text(
-                              _timerSeconds > 0
-                                  ? '$_timerSeconds सेकंड में पुनः भेजें'
-                                  : 'पुनः OTP भेजें',
+                              'पढ़ो',
                               style: TextStyle(
-                                color: _timerSeconds > 0
-                                    ? AppTheme.textHint
-                                    : AppTheme.primary,
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'NotoSansDevanagari',
                               ),
                             ),
                           ),
+                        ),
+                        const SizedBox(height: 24),
+
+                        // ─── App Name ──────────────────────────────
+                        Text(
+                          AppConstants.appName,
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(color: AppTheme.primary),
+                        ),
+                        const SizedBox(height: 8),
+
+                        Text(
+                          AppConstants.tagline,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                color: AppTheme.textSecondary,
+                                fontSize: 14,
+                              ),
+                        ),
+                        const SizedBox(height: 48),
+
+                        // ─── Phone Input ───────────────────────────
+                        if (!_isOTPSent) ...[
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppTheme.surface,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppTheme.cardShadow,
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'अपना फोन नंबर दर्ज करें',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  children: [
+                                    // Country Code
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 14,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: AppTheme.divider,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Text(
+                                        _selectedCountryCode,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    // Phone Number
+                                    Expanded(
+                                      child: TextFormField(
+                                        controller: _phoneController,
+                                        keyboardType: TextInputType.phone,
+                                        maxLength: 10,
+                                        decoration: InputDecoration(
+                                          hintText: '98765 43210',
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: authProvider.isLoading
+                                        ? null
+                                        : _sendOTP,
+                                    child: authProvider.isLoading
+                                        ? const SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : const Text(
+                                            'OTP भेजें',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
-                      ),
+
+                        // ─── OTP Input ─────────────────────────────
+                        if (_isOTPSent) ...[
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppTheme.surface,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppTheme.cardShadow,
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'OTP दर्ज करें',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '$_selectedCountryCode ${_phoneController.text} पर OTP भेजा गया',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                const SizedBox(height: 24),
+                                // OTP Input Boxes
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: List.generate(6, (index) {
+                                    return SizedBox(
+                                      width: 48,
+                                      height: 56,
+                                      child: TextFormField(
+                                        controller: _otpControllers[index],
+                                        focusNode: _otpFocusNodes[index],
+                                        keyboardType: TextInputType.number,
+                                        textAlign: TextAlign.center,
+                                        maxLength: 1,
+                                        style: const TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        buildCounter:
+                                            (
+                                              context, {
+                                              required currentLength,
+                                              required isFocused,
+                                              required maxLength,
+                                            }) => null,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          filled: true,
+                                          fillColor: AppTheme.background,
+                                        ),
+                                        onChanged: (value) =>
+                                            _onOTPChanged(value, index),
+                                      ),
+                                    );
+                                  }),
+                                ),
+                                const SizedBox(height: 20),
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: authProvider.isLoading
+                                        ? null
+                                        : _verifyOTP,
+                                    child: authProvider.isLoading
+                                        ? const SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : const Text(
+                                            'सत्यापित करें',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                // Resend Timer
+                                TextButton(
+                                  onPressed: _timerSeconds <= 0
+                                      ? () {
+                                          _sendOTP();
+                                        }
+                                      : null,
+                                  child: Text(
+                                    _timerSeconds > 0
+                                        ? '$_timerSeconds सेकंड में पुनः भेजें'
+                                        : 'पुनः OTP भेजें',
+                                    style: TextStyle(
+                                      color: _timerSeconds > 0
+                                          ? AppTheme.textHint
+                                          : AppTheme.primary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+
+                        const SizedBox(height: 32),
+
+                        // ─── Terms ─────────────────────────────────
+                        Text(
+                          'जारी रखते हुए आप हमारी\nशर्तों और गोपनीयता नीति से सहमत हैं',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(fontSize: 11),
+                        ),
+                        const SizedBox(height: 40),
+                      ],
                     ),
-                  ],
-
-                  const SizedBox(height: 32),
-
-                  // ─── Terms ─────────────────────────────────
-                  Text(
-                    'जारी रखते हुए आप हमारी\nशर्तों और गोपनीयता नीति से सहमत हैं',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(fontSize: 11),
                   ),
-                  const SizedBox(height: 40),
-                ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
-    ],
-  ),
-),
-);
+    );
   }
 }

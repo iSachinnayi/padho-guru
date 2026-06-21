@@ -99,7 +99,14 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('सूचनाएँ जल्द आ रही हैं'),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -147,7 +154,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: AppTheme.surface,
                   borderRadius: BorderRadius.circular(14),
@@ -172,22 +182,32 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: AppTheme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Icon(Icons.question_answer_outlined,
-                                size: 16, color: AppTheme.primary),
+                            child: const Icon(
+                              Icons.question_answer_outlined,
+                              size: 16,
+                              color: AppTheme.primary,
+                            ),
                           ),
                           const SizedBox(width: 8),
                           Flexible(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('आज के सवाल',
-                                    style: TextStyle(
-                                        fontSize: 11, color: AppTheme.textHint)),
-                                Text('3/5',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppTheme.textPrimary)),
+                                Text(
+                                  'आज के सवाल',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: AppTheme.textHint,
+                                  ),
+                                ),
+                                Text(
+                                  '3/5',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppTheme.textPrimary,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -195,11 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     // Divider
-                    Container(
-                      width: 1,
-                      height: 30,
-                      color: AppTheme.divider,
-                    ),
+                    Container(width: 1, height: 30, color: AppTheme.divider),
                     // Streak
                     Expanded(
                       child: Row(
@@ -208,25 +224,37 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 32,
                             height: 32,
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFF6F00).withValues(alpha: 0.1),
+                              color: const Color(
+                                0xFFFF6F00,
+                              ).withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Icon(Icons.local_fire_department_outlined,
-                                size: 16, color: Color(0xFFFF6F00)),
+                            child: const Icon(
+                              Icons.local_fire_department_outlined,
+                              size: 16,
+                              color: Color(0xFFFF6F00),
+                            ),
                           ),
                           const SizedBox(width: 8),
                           Flexible(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('लगातार',
-                                    style: TextStyle(
-                                        fontSize: 11, color: AppTheme.textHint)),
-                                Text('7 दिन',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppTheme.textPrimary)),
+                                Text(
+                                  'लगातार',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: AppTheme.textHint,
+                                  ),
+                                ),
+                                Text(
+                                  '7 दिन',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppTheme.textPrimary,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
