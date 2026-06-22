@@ -52,3 +52,5 @@ firebase.json
 
 # Environment variables (contains API keys)
 .env
+
+apk-server/
