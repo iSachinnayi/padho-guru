@@ -417,14 +417,14 @@ class _ChatScreenState extends State<ChatScreen> {
             onTap: _textController.text.trim().isNotEmpty
                 ? _sendMessage
                 : () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('वॉइस इनपुट जल्द आ रहा है'),
-                      behavior: SnackBarBehavior.floating,
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
-                },
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('वॉइस इनपुट जल्द आ रहा है'),
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  },
             child: Container(
               width: 40,
               height: 40,

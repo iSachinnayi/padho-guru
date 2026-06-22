@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2500));
     if (mounted) {
-      context.go('/');
+      context.go('/login');
     }
   }
 
@@ -108,12 +108,13 @@ class _SplashScreenState extends State<SplashScreen>
               const SizedBox(height: 8),
               FadeTransition(
                 opacity: _fadeAnimation,
-                child: Text(
-                  'NCERT AI Tutor',
+                child: const Text(
+                  'फोटो खींचो, हिंदी में समझो',
                   style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.7),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'NotoSansDevanagari',
                   ),
                 ),
               ),

@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Text(
-                    'NCERT AI Tutor',
+                    'फोटो खींचो, हिंदी में समझो',
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.7),
                       fontSize: 13,

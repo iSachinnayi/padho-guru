@@ -7,8 +7,8 @@ class AppConstants {
   static const String appNameEn = 'Padho Guru';
   static const String storeTitle = 'NCERT AI Tutor: Study Solver';
   static const String tagline =
-      'NCERT का AI Tutor — फोटो खींचो, हिंदी में समझो';
-  static const String taglineEn = 'Click photo, get Hindi answer instantly!';
+      'फोटो खींचो, NCERT हिंदी में समझो — आसान, तेज़, सटीक!';
+  static const String taglineEn = 'Snap a photo, learn NCERT in Hindi!';
 
   // ─── Pricing ───────────────────────────────────────────────
   static const int freeQuestionsPerDay = 5;
